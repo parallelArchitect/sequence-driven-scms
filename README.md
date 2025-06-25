@@ -1,5 +1,5 @@
 # sequence-driven-scms
-Code for "Language Models as Causal Effect Generators" implementing sequence-driven structural causal models (SD-SCMs). An SD-SCM allows for interventional and counterfactual data generation with a user-defined DAG and LLM-defined structural equations.
+Code for "Language Models as Causal Effect Generators" ([https://arxiv.org/pdf/2411.08019](https://arxiv.org/pdf/2411.08019)) implementing sequence-driven structural causal models (SD-SCMs). An SD-SCM allows for interventional and counterfactual data generation with a user-defined DAG and LLM-defined structural equations.
 
 # causal data generation via language model
 
@@ -16,12 +16,12 @@ The `data` folder contains 2000 example datasets for benchmarking treatment effe
 
 The file `bcancer_generation.ipynb` demonstrates data generation using the breast cancer SD-SCM family. The notebook `benchmark.ipynb` replicates all effect estimation methods tested in the paper's example benchmark.
 
-# files and usage 
+# files and usage
 - `confounder_collider.ipynb`: example usage of the functions in `sdscm.py` to generate two simple SD-SCMs
 - `bcancer_generation.ipynb`: example generation of a breast cancer SD-SCM using the config file `breast_cancer_config.json`
 - `data/cancer_example/`: 2000 example datasets for benchmarking treatment effect estimation algorithms (1000 from GPT-2, 1000 from Llama-3-8b) based on the breast cancer SD-SCM family
 - `benchmark.ipynb`: replication of all effect estimation methods tested in the paper's example benchmark
 - `bcancer_plots.ipynb`: some plots of the generated breast cancer datasets
 
-Requirements: 
+Requirements:
 `catenets, econml, matplotlib, networkx, numpy, pandas, plotnine, rpy2, scikit-learn, seaborn, torch, tqdm, transformers`
