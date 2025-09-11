@@ -25,3 +25,14 @@ The file `bcancer_generation.ipynb` demonstrates data generation using the breas
 
 Requirements:
 `catenets, econml, matplotlib, networkx, numpy, pandas, plotnine, rpy2, scikit-learn, seaborn, torch, tqdm, transformers`
+
+# citation
+```
+@article{bynum2024sdscm,
+  title = {Language Models as Causal Effect Generators},
+  author = {Bynum, Lucius EJ and Cho, Kyunghyun},
+  year = {2024},
+  eprint = {2411.08019},
+  journal = {arXiv Preprint arXiv:2411.08019},
+}
+```
