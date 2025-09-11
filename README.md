@@ -28,7 +28,7 @@ Requirements:
 
 # citation
 ```
-@article{bynum2024sdscm,
+@article{bynumcho2024sdscm,
   title = {Language Models as Causal Effect Generators},
   author = {Bynum, Lucius EJ and Cho, Kyunghyun},
   year = {2024},
