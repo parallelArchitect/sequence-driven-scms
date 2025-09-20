@@ -4,9 +4,11 @@ import numpy as np
 import pandas as pd
 from tqdm import tqdm
 from econml.grf import CausalForest
+
 from econml.dml import LinearDML, CausalForestDML
 from sklearn.linear_model import LinearRegression
 from sklearn.ensemble import RandomForestRegressor
+from econml.metalearners import TLearner, SLearner
 from econml.dr import ForestDRLearner, LinearDRLearner
 from catenets.models.jax import SNet, FlexTENet, OffsetNet, TNet, SNet1, SNet2, SNet3, DRNet, RANet, PWNet, RNet, XNet
 
@@ -36,6 +38,106 @@ def format_prediction_results(
         'ite_upper_bounds': ite_upper_bounds,
     }
     return estimate_dict
+
+
+def predict_forest_tlearner(x, z, y):
+    # https://econml.azurewebsites.net/_autosummary/econml.metalearners.TLearner.html
+    model = TLearner(models=RandomForestRegressor())
+    model.fit(Y=y, T=z, X=x)
+    estimated_ate = model.ate(X=x)
+    ate_lower_bound, ate_upper_bound = None, None
+    estimated_cates = model.effect(X=x)
+    cate_lower_bounds, cate_upper_bounds = None, None
+    estimated_ites = None
+    ite_lower_bounds = None
+    ite_upper_bounds = None
+
+    return format_prediction_results(
+        estimated_ate=estimated_ate,
+        ate_lower_bound=ate_lower_bound,
+        ate_upper_bound=ate_upper_bound,
+        estimated_cates=estimated_cates,
+        cate_lower_bounds=cate_lower_bounds,
+        cate_upper_bounds=cate_upper_bounds,
+        estimated_ites=estimated_ites,
+        ite_lower_bounds=ite_lower_bounds,
+        ite_upper_bounds=ite_upper_bounds
+    )
+
+
+def predict_linear_tlearner(x, z, y):
+    # https://econml.azurewebsites.net/_autosummary/econml.metalearners.TLearner.html
+    model = TLearner(models=LinearRegression())
+    model.fit(Y=y, T=z, X=x)
+    estimated_ate = model.ate(X=x)
+    ate_lower_bound, ate_upper_bound = None, None
+    estimated_cates = model.effect(X=x)
+    cate_lower_bounds, cate_upper_bounds = None, None
+    estimated_ites = None
+    ite_lower_bounds = None
+    ite_upper_bounds = None
+
+    return format_prediction_results(
+        estimated_ate=estimated_ate,
+        ate_lower_bound=ate_lower_bound,
+        ate_upper_bound=ate_upper_bound,
+        estimated_cates=estimated_cates,
+        cate_lower_bounds=cate_lower_bounds,
+        cate_upper_bounds=cate_upper_bounds,
+        estimated_ites=estimated_ites,
+        ite_lower_bounds=ite_lower_bounds,
+        ite_upper_bounds=ite_upper_bounds
+    )
+
+
+def predict_forest_slearner(x, z, y):
+    # https://econml.azurewebsites.net/_autosummary/econml.metalearners.SLearner.html
+    model = SLearner(overall_model=RandomForestRegressor())
+    model.fit(Y=y, T=z, X=x)
+    estimated_ate = model.ate(X=x)
+    ate_lower_bound, ate_upper_bound = None, None
+    estimated_cates = model.effect(X=x)
+    cate_lower_bounds, cate_upper_bounds = None, None
+    estimated_ites = None
+    ite_lower_bounds = None
+    ite_upper_bounds = None
+
+    return format_prediction_results(
+        estimated_ate=estimated_ate,
+        ate_lower_bound=ate_lower_bound,
+        ate_upper_bound=ate_upper_bound,
+        estimated_cates=estimated_cates,
+        cate_lower_bounds=cate_lower_bounds,
+        cate_upper_bounds=cate_upper_bounds,
+        estimated_ites=estimated_ites,
+        ite_lower_bounds=ite_lower_bounds,
+        ite_upper_bounds=ite_upper_bounds
+    )
+
+
+def predict_linear_slearner(x, z, y):
+    # https://econml.azurewebsites.net/_autosummary/econml.metalearners.SLearner.html
+    model = SLearner(overall_model=LinearRegression())
+    model.fit(Y=y, T=z, X=x)
+    estimated_ate = model.ate(X=x)
+    ate_lower_bound, ate_upper_bound = None, None
+    estimated_cates = model.effect(X=x)
+    cate_lower_bounds, cate_upper_bounds = None, None
+    estimated_ites = None
+    ite_lower_bounds = None
+    ite_upper_bounds = None
+
+    return format_prediction_results(
+        estimated_ate=estimated_ate,
+        ate_lower_bound=ate_lower_bound,
+        ate_upper_bound=ate_upper_bound,
+        estimated_cates=estimated_cates,
+        cate_lower_bounds=cate_lower_bounds,
+        cate_upper_bounds=cate_upper_bounds,
+        estimated_ites=estimated_ites,
+        ite_lower_bounds=ite_lower_bounds,
+        ite_upper_bounds=ite_upper_bounds
+    )
 
 
 def predict_forest_dr(x, z, y):
@@ -348,7 +450,11 @@ METHOD_LOOKUP = dict(
     CausalForestDML=predict_causalforest_dml,
     LinearDML=predict_linear_dml,
     ForestDR=predict_forest_dr,
-    LinearDR=predict_linear_dr
+    LinearDR=predict_linear_dr,
+    ForestTLearner=predict_forest_tlearner,
+    ForestSLearner=predict_forest_slearner,
+    LinearTLearner=predict_linear_tlearner,
+    LinearSLearner=predict_linear_slearner,
 )
 
 

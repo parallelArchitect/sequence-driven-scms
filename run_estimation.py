@@ -8,6 +8,63 @@ from estimation import run_estimation_methods
 from utils import format_estimation_df
 
 
+
+def run_ST_estimation(dataset_paths, py_estimation_df_path):
+    run_estimation = not os.path.isfile(py_estimation_df_path)
+    method_names = ['ForestSLearner', 'ForestTLearner', 'LinearSLearner', 'LinearTLearner']
+
+    y_name = 'logP(X13=0)'
+    outcome_index = 13
+    treatment_index = 12
+    possible_treatment_values = [0, 1]
+    possible_outcome_values = [0, 1, 2, 3]
+    treatment_name = f'X{treatment_index}'
+    all_covariates = [f'X{i}' for i in range(12)]
+    observed_covariates = [f'X{i}' for i in range(4, 12)]
+    
+    if run_estimation:
+        all_prediction_dfs = []
+        all_estimation_dfs = []
+        for covariate_names in [all_covariates, observed_covariates]:
+            predictions_df = run_estimation_methods(
+                dataset_paths=dataset_paths,
+                method_names=method_names,
+                covariate_names=covariate_names,
+                treatment_name=treatment_name,
+                y_name=y_name,
+                outcome_index=outcome_index,
+                possible_outcome_values=possible_outcome_values,
+                treatment_index=treatment_index,
+                possible_treatment_values=possible_treatment_values
+            )
+            predictions_df['model_name'] = predictions_df['df_path'].apply(lambda x: x.split('/')[2])
+            all_prediction_dfs.append(predictions_df)
+            all_estimation_dfs.append(format_estimation_df(predictions_df=predictions_df))
+        predictions_df = pd.concat(all_prediction_dfs, axis=0)
+        py_estimation_df = pd.concat(all_estimation_dfs, axis=0)
+        with open(py_estimation_df_path, 'wb') as file:
+            pickle.dump(py_estimation_df, file)
+        print(f'Saved at: {py_estimation_df_path}')
+    else:
+        with open(py_estimation_df_path, 'rb') as file:
+            py_estimation_df = pd.read_pickle(file)
+        print(f'Loaded from: {py_estimation_df_path}')
+    
+    return py_estimation_df
+
+
+def run_ST_estimation_1k():
+    py_estimation_df_path = 'ST_estimation_df.pkl'
+    dataset_paths = pd.read_csv('all_df_paths.csv')['df_path'].values.tolist()
+    return run_ST_estimation(dataset_paths=dataset_paths, py_estimation_df_path=py_estimation_df_path)
+
+
+def run_ST_estimation_10k():
+    py_estimation_df_path = 'ST_10k_estimation_df.pkl'
+    dataset_paths = pd.read_csv('10k_df_paths.csv')['df_path'].values.tolist()
+    return run_ST_estimation(dataset_paths=dataset_paths, py_estimation_df_path=py_estimation_df_path)
+
+
 def run_py_estimation(dataset_paths, py_estimation_df_path):
     run_estimation = not os.path.isfile(py_estimation_df_path)
     method_names = ['NaiveLinReg', 'LinReg', 'RF', 'CausalForest', 'CausalForestDML', 'LinearDML', 'LinearDR', 'ForestDR', 'TNet', 'SNet1']
