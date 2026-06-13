@@ -24,10 +24,7 @@ The file `bcancer_generation.ipynb` demonstrates data generation using the breas
 - `bcancer_plots.ipynb`: some plots of the generated breast cancer datasets
 - `gb10/`: GB10/DGX Spark unified memory support — see [gb10/README.md](gb10/README.md)
 
-Requirements:
-```bash
-pip install catenets econml matplotlib networkx numpy pandas plotnine rpy2 scikit-learn seaborn torch tqdm transformers
-```
+Requirements: see `requirements.txt`
 
 
 # GB10/DGX Spark
