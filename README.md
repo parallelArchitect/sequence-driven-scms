@@ -22,10 +22,25 @@ The file `bcancer_generation.ipynb` demonstrates data generation using the breas
 - `data/cancer_example/`: 2000 example datasets for benchmarking treatment effect estimation algorithms (1000 from GPT-2, 1000 from Llama-3-8b) based on the breast cancer SD-SCM family
 - `benchmark.ipynb`: replication of all effect estimation methods tested in the paper's example benchmark
 - `bcancer_plots.ipynb`: some plots of the generated breast cancer datasets
+- `gb10/`: GB10/DGX Spark unified memory support — see [gb10/README.md](gb10/README.md)
 
 Requirements:
-`catenets, econml, matplotlib, networkx, numpy, pandas, plotnine, rpy2, scikit-learn, seaborn, torch, tqdm, transformers`
+```bash
+pip install catenets econml matplotlib networkx numpy pandas plotnine rpy2 scikit-learn seaborn torch tqdm transformers
+```
 
+
+# GB10/DGX Spark
+
+`bcancer_generation.ipynb` and `confounder_collider.ipynb` include GB10/DGX Spark
+unified memory support. After loading the model:
+
+```python
+from gb10.uma import setup_gb10
+setup_gb10(model)
+```
+
+See [gb10/README.md](gb10/README.md) for details.
 # citation
 ```
 @article{bynumcho2024sdscm,
