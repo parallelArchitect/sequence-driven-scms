@@ -33,14 +33,20 @@ pip install catenets econml matplotlib networkx numpy pandas plotnine rpy2 sciki
 # GB10/DGX Spark
 
 `bcancer_generation.ipynb` and `confounder_collider.ipynb` include GB10/DGX Spark
-unified memory support. After loading the model:
+unified memory support.
+
+```bash
+pip install -r requirements.txt
+```
+
+After loading the model:
 
 ```python
 from gb10.uma import setup_gb10
 setup_gb10(model)
 ```
 
-See [gb10/README.md](gb10/README.md) for details.
+Then run the notebooks as usual. See [gb10/README.md](gb10/README.md) for details.
 # citation
 ```
 @article{bynumcho2024sdscm,
