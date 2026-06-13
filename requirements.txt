@@ -1,13 +1,17 @@
-catenets
-econml
 matplotlib
 networkx
 numpy
 pandas
-plotnine
-rpy2
-scikit-learn
-seaborn
 torch
 tqdm
 transformers
+jupyter
+
+# Optional — required for benchmark.ipynb and run_estimation.py only
+# Requires R to be installed: https://www.r-project.org
+# catenets
+# econml
+# plotnine
+# rpy2
+# scikit-learn
+# seaborn

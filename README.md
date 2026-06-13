@@ -36,6 +36,8 @@ pip install catenets econml matplotlib networkx numpy pandas plotnine rpy2 sciki
 unified memory support.
 
 ```bash
+git clone https://github.com/parallelArchitect/sequence-driven-scms.git
+cd sequence-driven-scms
 pip install -r requirements.txt
 ```
 
@@ -46,7 +48,13 @@ from gb10.uma import setup_gb10
 setup_gb10(model)
 ```
 
-Then run the notebooks as usual. See [gb10/README.md](gb10/README.md) for details.
+Then run:
+
+```bash
+jupyter notebook bcancer_generation.ipynb
+```
+
+See [gb10/README.md](gb10/README.md) for details.
 # citation
 ```
 @article{bynumcho2024sdscm,
